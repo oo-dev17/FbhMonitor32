@@ -13,6 +13,8 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
+#include "wifiConfig.h"
+
 #define TEMPERATURE_PRECISION 10
 #define NUM_DEVS 20
 #define BOTTOM_TEMP_OFFSET 15
@@ -24,8 +26,6 @@
 
 //int LED_BUILTIN = 2;
 
-char *ssid = "WLAN-Neu";
-char *password = "W123qweasd";
 const char compile_date[] = __DATE__ " " __TIME__;
 
 // https://lastminuteengineers.com/esp8266-ntp-server-date-time-tutorial/
@@ -530,7 +530,7 @@ void setup()
   pinMode(LED_BUILTIN, OUTPUT);
 
   WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
   digitalWrite(LED_BUILTIN, HIGH);
   Serial.begin(115200);
