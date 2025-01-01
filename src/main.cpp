@@ -11,6 +11,7 @@
 #include <ArduinoOTA.h>
 #include <Ticker.h>
 #include <OneWire.h>
+#include <driver/gpio.h>
 #include <DallasTemperature.h>
 
 #include "wifiConfig.h"
@@ -289,8 +290,8 @@ void handleNotFound()
 
 // https://randomnerdtutorials.com/esp8266-ds18b20-temperature-sensor-web-server-with-arduino-ide/
 //  GPIO where the DS18B20 is connected to
-const int oneWireBus = 27;
-OneWire oneWire(oneWireBus);
+const int oneWireBus = 10;
+OneWire oneWire(GPIO_NUM_10);
 DallasTemperature sensors(&oneWire);
 // DeviceAddress tempDeviceAddress;
 
@@ -550,7 +551,7 @@ void setup()
   digitalWrite(LED_BUILTIN, HIGH);
   Serial.println("");
   Serial.print("Connected to ");
-  Serial.println(ssid);
+  Serial.println(WIFI_SSID);
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 
@@ -654,10 +655,9 @@ void setup()
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
 
-    My_timer = timerBegin(0, 80, true);
-    timerAttachInterrupt(My_timer, &myLoopFunc, true);
-    timerAlarmWrite(My_timer, 1000000, true);
-    timerAlarmEnable(My_timer);
+    My_timer = timerBegin( 80);
+    timerAttachInterrupt(My_timer, &myLoopFunc);
+    timerStart(My_timer);
   }
   else
     Serial.println("MDNS responder NOT started!!!!!");

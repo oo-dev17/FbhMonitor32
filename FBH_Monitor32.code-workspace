@@ -2,6 +2,10 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"name": "minimalSample",
+			"path": "../../Dokumente/PlatformIO/Projects/minimalSample"
 		}
 	],
 	"settings": {}
